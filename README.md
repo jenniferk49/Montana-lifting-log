@@ -1,1 +1,0 @@
-# Montana-lifting-log
