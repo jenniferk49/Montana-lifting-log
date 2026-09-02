@@ -4,91 +4,492 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#17345f">
-<title>Montana Lifting Log</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Training Log">
+<title>Training Log</title>
+
 <style>
-:root{--navy:#17345f;--purple:#6b3fa0;--green:#356b45;--cream:#faf8f3;--bg:#f4f3ef;--line:#ddd8cf;--muted:#6d6a65}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#222;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
-main{max-width:700px;margin:auto;padding:16px 14px 32px}.card{background:var(--cream);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:12px}
-h1{font-size:25px;margin:0;color:var(--navy)}h2{font-size:19px;margin:0 0 5px;color:var(--navy)}
-.muted{color:var(--muted);font-size:13px}.tabs{display:flex;gap:7px;overflow-x:auto;padding-bottom:2px}.tabs button{white-space:nowrap}
-button,select,input{font:inherit}button{min-height:44px;border:1px solid var(--line);background:#fff;border-radius:11px;padding:8px 13px;font-weight:700;color:#222}button.primary{background:var(--navy);color:#fff;border-color:var(--navy)}button.danger{color:#9b2c2c}button.active{background:var(--purple);color:#fff;border-color:var(--purple)}
-.exercise-select{appearance:auto}.date{width:100%;min-height:44px;border:1px solid var(--line);border-radius:10px;padding:8px;background:#fff}
-.exercise{padding:14px 0;border-bottom:1px solid var(--line)}.exercise:last-child{border-bottom:0}
-.exercise-head{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}.last{font-size:12px;background:#eee9f4;color:var(--purple);border-radius:999px;padding:5px 8px;white-space:nowrap}
-.grid{display:grid;grid-template-columns:34px 1fr 1fr;gap:7px;align-items:center;margin-top:8px}.grid label{font-size:11px;text-align:center;color:var(--muted)}.setnum{text-align:center;font-size:13px;font-weight:700;color:#666}
-.grid input,.progress-select{width:100%;min-height:43px;border:1px solid #cfc9bf;border-radius:9px;padding:8px 9px;background:#fff;font-size:16px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.stat{background:#fff;border:1px solid var(--line);border-radius:11px;padding:10px;text-align:center}.stat b{display:block;font-size:18px;color:var(--navy)}
-.row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}.row:last-child{border-bottom:0}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.notice{padding:10px;border-radius:10px;background:#eef3f8;color:var(--navy);font-size:13px;margin-top:10px}
-textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:13px}
-@media(max-width:430px){main{padding:12px 10px}.stats{grid-template-columns:1fr 1fr 1fr}.last{font-size:11px}}
+:root{
+--navy:#17345f;
+--purple:#6b3fa0;
+--green:#356b45;
+--cream:#faf8f3;
+--bg:#f4f3ef;
+--line:#ddd8cf;
+--muted:#6d6a65;
+--blue:#557da5;
+--orange:#bd7b3e;
+--hike:#765a99
+}
+
+*{box-sizing:border-box}
+
+body{
+margin:0;
+background:var(--bg);
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+color:#222;
+padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)
+}
+
+main{
+max-width:700px;
+margin:auto;
+padding:16px 14px 32px
+}
+
+.card{
+background:var(--cream);
+border:1px solid var(--line);
+border-radius:18px;
+padding:16px;
+margin-bottom:12px
+}
+
+h1{
+font-size:25px;
+margin:0;
+color:var(--navy)
+}
+
+h2{
+font-size:19px;
+margin:0 0 5px;
+color:var(--navy)
+}
+
+h3{
+font-size:16px;
+margin:0 0 4px;
+color:var(--navy)
+}
+
+.muted{
+color:var(--muted);
+font-size:13px
+}
+
+.tabs{
+display:flex;
+gap:7px;
+overflow-x:auto;
+padding-bottom:2px
+}
+
+.tabs button{
+white-space:nowrap
+}
+
+button,select,input,textarea{
+font:inherit
+}
+
+button{
+min-height:44px;
+border:1px solid var(--line);
+background:#fff;
+border-radius:11px;
+padding:8px 13px;
+font-weight:700;
+color:#222
+}
+
+button.primary{
+background:var(--navy);
+color:#fff;
+border-color:var(--navy)
+}
+
+button.danger{
+color:#9b2c2c
+}
+
+button.active{
+background:var(--purple);
+color:#fff;
+border-color:var(--purple)
+}
+
+select,input{
+min-height:43px;
+border:1px solid #cfc9bf;
+border-radius:9px;
+padding:8px 9px;
+background:#fff;
+font-size:16px
+}
+
+textarea{
+width:100%;
+border:1px solid var(--line);
+border-radius:10px;
+padding:10px;
+font-size:13px
+}
+
+.date{
+width:100%
+}
+
+.grid{
+display:grid;
+grid-template-columns:34px 1fr 1fr;
+gap:7px;
+align-items:center;
+margin-top:8px
+}
+
+.grid label{
+font-size:11px;
+text-align:center;
+color:var(--muted)
+}
+
+.setnum{
+text-align:center;
+font-size:13px;
+font-weight:700;
+color:#666
+}
+
+.exercise{
+padding:14px 0;
+border-bottom:1px solid var(--line)
+}
+
+.exercise:last-child{
+border-bottom:0
+}
+
+.exercise-head{
+display:flex;
+justify-content:space-between;
+gap:8px;
+align-items:flex-start
+}
+
+.last{
+font-size:12px;
+background:#eee9f4;
+color:var(--purple);
+border-radius:999px;
+padding:5px 8px;
+white-space:nowrap
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:8px;
+margin-top:12px
+}
+
+.stat{
+background:#fff;
+border:1px solid var(--line);
+border-radius:11px;
+padding:10px;
+text-align:center
+}
+
+.stat b{
+display:block;
+font-size:18px;
+color:var(--navy)
+}
+
+.row{
+display:grid;
+grid-template-columns:1fr auto;
+gap:8px;
+align-items:center;
+padding:10px 0;
+border-bottom:1px solid var(--line)
+}
+
+.row:last-child{
+border-bottom:0
+}
+
+.actions{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+margin-top:10px
+}
+
+.notice{
+padding:10px;
+border-radius:10px;
+background:#eef3f8;
+color:var(--navy);
+font-size:13px;
+margin-top:10px
+}
+
+.small{
+font-size:12px;
+line-height:1.55
+}
+
+.note{
+font-size:12px;
+color:var(--muted);
+line-height:1.5
+}
+
+.empty{
+text-align:center;
+padding:20px;
+color:var(--muted)
+}
+
+.day{
+border-left:5px solid var(--green)
+}
+
+.day.strength{
+border-left-color:var(--purple)
+}
+
+.day.hill{
+border-left-color:var(--blue)
+}
+
+.day.hike{
+border-left-color:var(--hike)
+}
+
+.day.walk{
+border-left-color:var(--orange)
+}
+
+.day.recovery{
+border-left-color:var(--green)
+}
+
+.day.rest{
+border-left-color:#999
+}
+
+.day.completed{
+opacity:.78
+}
+
+.slot{
+border:1px solid var(--line);
+border-radius:14px;
+padding:12px;
+margin-top:10px;
+background:#fff
+}
+
+.slot-head{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:8px
+}
+
+.pill{
+font-size:10px;
+font-weight:800;
+border-radius:20px;
+padding:5px 8px;
+background:#e1ebe3;
+color:#3d5a42
+}
+
+.purple{
+background:#eee9f4;
+color:var(--purple)
+}
+
+.progress{
+height:9px;
+background:#e6eaec;
+border-radius:20px;
+overflow:hidden;
+margin:10px 0
+}
+
+.bar{
+height:100%;
+background:#718f75
+}
+
+.check{
+display:flex;
+align-items:center;
+gap:10px;
+padding:8px 0
+}
+
+.check input{
+width:21px;
+height:21px
+}
+
+.week-day{
+margin-bottom:12px
+}
+
+.two-col{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px
+}
+
+.metric{
+background:#f6f8f8;
+border-radius:12px;
+padding:12px
+}
+
+.metric span{
+display:block;
+font-size:12px;
+color:var(--muted)
+}
+
+.metric b{
+display:block;
+margin-top:3px;
+font-size:20px;
+color:var(--navy)
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+font-size:12px
+}
+
+th,td{
+padding:8px 5px;
+text-align:left;
+border-bottom:1px solid #eee
+}
+
+th{
+color:var(--muted)
+}
+
+@media(max-width:430px){
+main{
+padding:12px 10px
+}
+
+.stats{
+grid-template-columns:1fr 1fr 1fr
+}
+
+.two-col{
+grid-template-columns:1fr
+}
+}
 </style>
 </head>
+
 <body>
+
 <main>
-<section class="card">
-<h1>🏋️ Montana Lifting Log</h1>
-<div class="muted">4-day strength plan • Track weights, reps & progress</div>
-<div class="stats"><div class="stat"><b id="count">0</b><span class="muted">Workouts</span></div><div class="stat"><b id="exCount">0</b><span class="muted">Exercises</span></div><div class="stat"><b id="last">—</b><span class="muted">Last date</span></div></div>
-</section>
 
 <section class="card">
-<h2>Today's workout</h2>
-<div class="tabs" id="tabs"></div>
-</section>
 
-<section class="card">
-<div style="display:flex;justify-content:space-between;gap:10px;align-items:center">
-<div><h2 id="title"></h2><div class="muted" id="focus"></div></div>
-<input class="date" id="date" type="date" style="max-width:155px">
+<h1>🏋️🥾 Training Log</h1>
+
+<div class="muted">
+Flexible strength + cardio training • Built for Montana, useful long after the trip
 </div>
-<div id="exercises"></div><div id="absOption" class="notice" style="display:none"><label style="display:flex;gap:10px;align-items:center"><input id="tenMinAbs" type="checkbox" style="width:22px;height:22px"> <b>10-minute abs completed</b></label><div class="muted" style="margin-top:4px">Use this instead of the listed ab exercise.</div></div>
-<button class="primary" id="save" style="width:100%;margin-top:12px">✓ Save Workout</button>
-<div class="muted" id="msg" aria-live="polite" style="margin-top:8px"></div>
+
+<div class="stats">
+
+<div class="stat">
+<b id="count">0</b>
+<span class="muted">Strength</span>
+</div>
+
+<div class="stat">
+<b id="cardioCount">0</b>
+<span class="muted">Cardio</span>
+</div>
+
+<div class="stat">
+<b id="last">—</b>
+<span class="muted">Last workout</span>
+</div>
+
+</div>
+
 </section>
 
 <section class="card">
-<h2>Progress</h2><div class="muted">Pick an exercise to see your recent numbers.</div>
-<select id="progressSelect" class="progress-select" style="margin-top:10px"></select>
-<div id="progress" style="margin-top:8px"></div>
+
+<div class="tabs" id="tabs">
+
+<button data-page="today">Today</button>
+
+<button data-page="week">Week</button>
+
+<button data-page="progress">Progress</button>
+
+<button data-page="settings">Settings</button>
+
+</div>
+
 </section>
 
-<section class="card">
-<h2>Workout history</h2><div id="history" class="muted"></div>
-<div class="actions"><button id="export">Export Backup</button><button id="clear" class="danger">Clear All Data</button></div>
-<div class="notice">Your workouts are saved on this device in your browser. Use <b>Export Backup</b> occasionally so you have a copy if you change phones or clear browser data.</div>
-<textarea id="backup" rows="3" placeholder="Backup text appears here after Export Backup."></textarea>
-<button id="import" style="margin-top:8px">Restore Backup</button>
-</section>
+<div id="app"></div>
+
 </main>
 
 <script>
+
 const W={
-"Lower A":{f:"Glutes + Hamstrings",e:[
+
+"Lower A":{
+f:"Glutes + Hamstrings",
+e:[
 [["Machine Hip Thrust","Smith Machine Hip Thrust"],4,"8–12"],
 [["Smith Machine Squat","Leg Press"],3,"8–10"],
 [["Seated Leg Curl","Lying Leg Curl"],3,"10–12"],
 [["Hip Abduction Machine","Cable Hip Abduction"],3,"10–12"],
 [["Hip Adduction Machine","Cable Hip Adduction"],3,"10–12"],
 [["Back Extension — Glute Bias","Cable Pull-Through"],2,"10–15"],
-[["Dead Bug","Pallof Press"],3,"8–12 / side"]]},
-"Upper A":{f:"Back + Shoulders + Triceps",e:[
+[["Dead Bug","Pallof Press"],3,"8–12 / side"]
+]
+},
+
+"Upper A":{
+f:"Back + Shoulders + Triceps",
+e:[
 [["Lat Pulldown","Assisted Pull-Up"],3,"8–12"],
 [["Chest-Supported Row Machine","Seated Cable Row"],3,"8–12"],
 [["Machine Shoulder Press","Smith Machine Shoulder Press"],3,"8–12"],
 [["Cable Lateral Raise","Machine Lateral Raise"],3,"12–20"],
 [["Reverse Pec Deck","Cable Rear-Delt Fly"],3,"12–15"],
 [["Cable Triceps Pressdown","Triceps Extension Machine"],3,"10–15"],
-[["Overhead Cable Triceps Extension","Single-Arm Cable Extension"],2,"10–15"]]},
-"Lower B":{f:"Glutes + Quads + Hamstrings",e:[
+[["Overhead Cable Triceps Extension","Single-Arm Cable Extension"],2,"10–15"]
+]
+},
+
+"Lower B":{
+f:"Glutes + Quads + Hamstrings",
+e:[
 [["Machine Hip Thrust","Smith Machine Hip Thrust"],3,"10–12"],
 [["Smith Machine Squat","Leg Press"],3,"10–12"],
 [["Leg Press","Hack Squat"],3,"10–15"],
 [["Seated Leg Curl","Lying Leg Curl"],3,"10–15"],
 [["Hip Abduction Machine","Cable Hip Abduction"],3,"10–12"],
 [["Hip Adduction Machine","Cable Hip Adduction"],3,"10–12"],
-[["Captain's Chair Knee Raise","Reverse Crunch"],3,"8–15"]]},
-"Upper B":{f:"Back + Shoulders + Chest + Arms",e:[
+[["Captain's Chair Knee Raise","Reverse Crunch"],3,"8–15"]
+]
+},
+
+"Upper B":{
+f:"Back + Shoulders + Chest + Arms",
+e:[
 [["Assisted Pull-Up","Neutral-Grip Lat Pulldown"],3,"8–12"],
 [["Seated Row Machine","Chest-Supported Row"],3,"8–12"],
 [["Machine Chest Press","Push-Up"],3,"8–12"],
@@ -96,84 +497,1499 @@ const W={
 [["Reverse Pec Deck","Cable Rear-Delt Fly"],2,"12–15"],
 [["Cable Triceps Pressdown","Triceps Extension Machine"],3,"10–15"],
 [["Cable Curl","Machine Curl"],2,"10–15"],
-[["Pallof Press","Dead Bug"],2,"10–12 / side"]]}
+[["Pallof Press","Dead Bug"],2,"10–12 / side"]
+]
+}
+
 };
-let logs=JSON.parse(localStorage.getItem("montanaLiftingLogs")||"[]"), current="Lower A";
+
+const C={
+
+"Hill Training":{
+className:"hill",
+desc:"Hiking-specific incline intervals.",
+steps:[
+"5 min easy warm-up — 0–3%",
+"5 min moderate — 5–6%",
+"3 min hard — 8–10%",
+"2 min easy",
+"3 min hard — 8–10%",
+"2 min easy",
+"3 min hard — 8–10%",
+"2 min easy",
+"5 min cool-down"
+]
+},
+
+"Hike Simulation":{
+className:"hike",
+desc:"Continuous climbing endurance.",
+steps:[
+"10 min — 5%",
+"10 min — 7%",
+"10 min — 8–10%",
+"5–10 min — 5–7%",
+"5 min flat cool-down"
+]
+},
+
+"Easy Walk":{
+className:"walk",
+desc:"Easy aerobic movement.",
+steps:[
+"20–45 minutes at a conversational pace.",
+"Keep the effort comfortable."
+]
+},
+
+"Recovery / Steps Only":{
+className:"recovery",
+desc:"No dedicated cardio; focus on normal movement.",
+steps:[
+"Aim for your daily step goal.",
+"Prioritize recovery."
+]
+},
+
+"Rest Day":{
+className:"rest",
+desc:"No planned cardio.",
+steps:[
+"Normal daily movement is fine."
+]
+}
+
+};
+
+let logs=JSON.parse(
+localStorage.getItem("montanaLiftingLogs")||"[]"
+);
+
+let cardioLogs=JSON.parse(
+localStorage.getItem("trainingCardioLogs")||"[]"
+);
+
+let plans=JSON.parse(
+localStorage.getItem("trainingDailyPlans")||"{}"
+);
+
+let settings=JSON.parse(
+localStorage.getItem("trainingSettings")||
+'{"week":1,"steps":7000,"protein":130,"calories":1725}'
+);
+
+let currentPage="today";
+
+let currentStrength="Lower A";
+
+let editingDate=today();
+
 const $=id=>document.getElementById(id);
-const today=()=>{let d=new Date();d=new Date(d-d.getTimezoneOffset()*60000);return d.toISOString().slice(0,10)};
-$("date").value=today();
 
-Object.keys(W).forEach(n=>{let b=document.createElement("button");b.textContent=n;b.onclick=()=>{current=n;render()};$("tabs").appendChild(b)});
+function today(){
 
-function lastFor(name){for(let i=logs.length-1;i>=0;i--){let e=logs[i].exercises.find(x=>x.name===name);if(e){let vals=e.sets.filter(s=>s.weight!=="").map(s=>s.weight);if(vals.length)return vals[vals.length-1]+" lb"}}return null}
+let d=new Date();
 
-function getPref(exIndex,options){
-let key=current+"|"+exIndex, saved=localStorage.getItem("montanaChoice_"+key);
-return saved&&options.includes(saved)?saved:options[0];
+d=new Date(
+d-d.getTimezoneOffset()*60000
+);
+
+return d.toISOString().slice(0,10)
+
 }
-function render(){
-document.querySelectorAll("#tabs button").forEach(b=>b.classList.toggle("active",b.textContent===current));
-$("title").textContent=current;$("focus").textContent=W[current].f;$("exercises").innerHTML="";
-$("absOption").style.display=(current==="Lower A"||current==="Lower B")?"block":"none";
-W[current].e.forEach(([options,sets,reps],i)=>{
-let chosen=getPref(i,options),d=document.createElement("div");d.className="exercise";
-let opts=options.map(x=>`<option ${x===chosen?"selected":""}>${x}</option>`).join("");
-d.innerHTML=`<div class="exercise-head"><div style="width:100%"><select class="exercise-select" data-index="${i}" aria-label="Choose exercise" style="width:100%;min-height:43px;border:1px solid #cfc9bf;border-radius:9px;padding:8px;background:#fff;font-size:16px">${opts}</select><div class="muted" style="margin-top:4px">${sets} sets • ${reps} reps</div></div></div><div class="grid"><label></label><label>WEIGHT (LB)</label><label>REPS</label></div>`;
-for(let s=1;s<=sets;s++){
-let previous=previousSet(chosen,s),r=document.createElement("div");r.className="grid";
-r.innerHTML=`<div class="setnum">${s}${previous?` <span class="muted">(${previous} lb)</span>`:""}</div><input inputmode="decimal" class="weight" aria-label="${chosen} set ${s} weight"><input inputmode="numeric" class="rep" aria-label="${chosen} set ${s} reps">`;
-d.appendChild(r)}
-let note=document.createElement("input");note.className="exercise-note";note.placeholder="Notes / machine settings";note.style.cssText="width:100%;min-height:40px;margin-top:8px;border:1px solid #cfc9bf;border-radius:9px;padding:8px 9px;background:#fff;font-size:15px";d.appendChild(note);
-$("exercises").appendChild(d);
-d.querySelector("select").addEventListener("change",e=>{localStorage.setItem("montanaChoice_"+current+"|"+i,e.target.value);render()});
-})}
+
+function keyDate(d){
+
+return d.toISOString().slice(0,10)
+
+}
+
+function fmt(k){
+
+return new Date(k+"T12:00:00")
+.toLocaleDateString(
+undefined,
+{
+weekday:"long",
+month:"short",
+day:"numeric"
+}
+)
+
+}
+
+function monday(){
+
+let d=new Date();
+
+let day=d.getDay();
+
+d.setDate(
+d.getDate()-((day+6)%7)
+);
+
+d.setHours(12,0,0,0);
+
+return d
+
+}
+
+function weekDate(i){
+
+let d=monday();
+
+d.setDate(d.getDate()+i);
+
+return keyDate(d)
+
+}
+
+function plan(k){
+
+if(!plans[k])
+
+plans[k]={
+strength:"",
+cardio:""
+};
+
+return plans[k]
+
+}
+
+function savePlans(){
+
+localStorage.setItem(
+"trainingDailyPlans",
+JSON.stringify(plans)
+)
+
+}
+
+function saveCardio(){
+
+localStorage.setItem(
+"trainingCardioLogs",
+JSON.stringify(cardioLogs)
+)
+
+}
+
+function saveSettings(){
+
+localStorage.setItem(
+"trainingSettings",
+JSON.stringify(settings)
+)
+
+}
+
+function workoutOptions(){
+
+return '<option value="">None</option>'+
+Object.keys(W)
+.map(x=>'<option>'+x+'</option>')
+.join("")
+
+}
+
+function cardioOptions(){
+
+return '<option value="">None</option>'+
+Object.keys(C)
+.map(x=>'<option>'+x+'</option>')
+.join("")
+
+}
+
+function setPlan(k,type,val){
+
+plan(k)[type]=val;
+
+savePlans();
+
+render()
+
+}
+
 function previousSet(name,setNum){
-for(let i=logs.length-1;i>=0;i--){let e=logs[i].exercises.find(x=>x.name===name);if(e&&e.sets[setNum-1]&&e.sets[setNum-1].weight!=="")return e.sets[setNum-1].weight}
-return null;
+
+for(
+let i=logs.length-1;
+i>=0;
+i--
+){
+
+let e=logs[i].exercises
+.find(x=>x.name===name);
+
+if(
+e &&
+e.sets[setNum-1] &&
+e.sets[setNum-1].weight!==""
+)
+
+return e.sets[setNum-1].weight
+
 }
-function save(){
+
+return null
+
+}
+
+function choice(key,i,options){
+
+let v=localStorage.getItem(
+"montanaChoice_"+key+"|"+i
+);
+
+return v &&
+options.includes(v)
+? v
+: options[0]
+
+}
+
+function strengthEditor(date,workout){
+
+if(!workout)
+
+return '<div class="empty">No strength workout assigned.</div>';
+
+currentStrength=workout;
+
+let html='';
+
+W[workout].e.forEach(
+([options,sets,reps],i)=>{
+
+let chosen=choice(
+workout,
+i,
+options
+);
+
+let previous=[];
+
+for(
+let s=1;
+s<=sets;
+s++
+){
+
+previous.push(
+previousSet(chosen,s)
+)
+
+}
+
+html+=
+'<div class="exercise">'+
+
+'<div class="exercise-head">'+
+
+'<div style="width:100%">'+
+
+'<select class="exercise-select" data-i="'+i+'" style="width:100%">'+
+
+options.map(
+x=>'<option '+
+
+(x===chosen?"selected":"")+
+'>'+
+x+
+'</option>'
+).join("")+
+
+'</select>'+
+
+'<div class="muted" style="margin-top:4px">'+
+sets+
+' sets • '+
+reps+
+' reps'+
+'</div>'+
+
+'</div>'+
+
+'</div>'+
+
+'<div class="grid">'+
+
+'<label></label>'+
+'<label>WEIGHT (LB)</label>'+
+'<label>REPS</label>'+
+
+'</div>';
+
+for(
+let s=1;
+s<=sets;
+s++
+){
+
+html+=
+'<div class="grid">'+
+
+'<div class="setnum">'+
+s+
+(previous[s-1]
+?' <span class="muted">('+previous[s-1]+' lb)</span>'
+:'')+
+'</div>'+
+
+'<input inputmode="decimal" class="weight" placeholder="lb">'+
+
+'<input inputmode="numeric" class="rep" placeholder="reps">'+
+
+'</div>'
+
+}
+
+html+=
+'<input class="exercise-note" '+
+'placeholder="Notes / machine settings" '+
+'style="width:100%;min-height:40px;margin-top:8px">'+
+
+'</div>'
+
+}
+
+return html
+
+}
+
+function cardioEditor(date,type){
+
+if(!type)
+
+return '<div class="empty">No cardio workout assigned.</div>';
+
+let c=C[type];
+
+let old=cardioLogs.find(
+x=>x.date===date
+);
+
+let html=
+'<div class="small">';
+
+c.steps.forEach(
+x=>{
+html+='• '+x+'<br>'
+}
+);
+
+html+='</div>';
+
+html+=
+
+'<label>Duration (minutes)</label>'+
+
+'<input id="cDuration" type="number" '+
+'value="'+
+(old?.duration||"")+
+'" placeholder="Example: 30">';
+
+if(
+type==="Hill Training"||
+type==="Hike Simulation"
+){
+
+html+=
+
+'<label>Highest incline (%)</label>'+
+
+'<input id="cIncline" type="number" '+
+'step="0.5" '+
+'value="'+
+(old?.incline||"")+
+'" placeholder="Example: 10">';
+
+}
+
+if(type==="Hike Simulation"){
+
+html+=
+
+'<label>Backpack weight (lb)</label>'+
+
+'<input id="cPack" type="number" '+
+'step="0.5" '+
+'value="'+
+(old?.pack||"")+
+'" placeholder="Optional">';
+
+}
+
+html+=
+
+'<label>Steps</label>'+
+
+'<input id="cSteps" type="number" '+
+'value="'+
+(old?.steps||"")+
+'" placeholder="Steps">';
+
+html+=
+
+'<div class="check">'+
+
+'<input id="cComplete" type="checkbox" '+
+(old?.completed?"checked":"")+
+'>'+
+
+'<span>Mark cardio complete</span>'+
+
+'</div>'+
+
+'<label>Notes</label>'+
+
+'<textarea id="cNotes" placeholder="How did it feel?">'+
+(old?.notes||'')+
+'</textarea>'+
+
+'<button class="primary" id="saveCardio" style="width:100%;margin-top:10px">'+
+'✓ Save Cardio'+
+'</button>'+
+
+'<div id="cardioMsg" class="muted" style="margin-top:8px"></div>';
+
+return html
+
+}
+
+function renderToday(){
+
+let k=editingDate;
+
+let p=plan(k);
+
+let strength=p.strength;
+
+let cardio=p.cardio;
+
+let html=
+
+'<section class="card">'+
+
+'<div class="row">'+
+
+'<div>'+
+'<h2>Today</h2>'+
+'<div class="muted">'+fmt(k)+'</div>'+
+'</div>'+
+
+'<input id="datePicker" class="date" type="date" value="'+
+k+
+'" style="max-width:155px">'+
+
+'</div>'+
+
+'<label>🏋️ Strength</label>'+
+
+'<select id="todayStrength">'+
+workoutOptions()+
+'</select>'+
+
+'<label>🥾 Cardio</label>'+
+
+'<select id="todayCardio">'+
+cardioOptions()+
+'</select>'+
+
+'<div class="notice">'+
+'You can do strength, cardio, both, or neither on any day. '+
+'Your schedule does not have to follow the same order every week.'+
+'</div>'+
+
+'</section>';
+
+html+=
+
+'<section class="card day strength">'+
+
+'<div class="slot-head">'+
+
+'<div>'+
+'<h2>🏋️ Strength</h2>'+
+'<div class="muted">'+
+(strength?
+W[strength].f:
+'No strength workout assigned')+
+'</div>'+
+'</div>'+
+
+'<span class="pill purple">STRENGTH</span>'+
+
+'</div>'+
+
+'<div id="strengthArea" style="margin-top:10px">'+
+
+strengthEditor(k,strength)+
+
+'</div>';
+
+if(strength){
+
+if(
+strength==="Lower A"||
+strength==="Lower B"
+){
+
+html+=
+'<div class="notice">'+
+'<label style="display:flex;gap:10px;align-items:center">'+
+
+'<input id="tenMinAbs" type="checkbox" style="width:22px;height:22px">'+
+
+'<b>10-minute abs completed</b>'+
+
+'</label>'+
+
+'<div class="muted" style="margin-top:4px">'+
+'Use this instead of the listed ab exercise.'+
+'</div>'+
+
+'</div>'
+
+}
+
+html+=
+
+'<button class="primary" id="saveStrength" style="width:100%;margin-top:12px">'+
+'✓ Save Strength Workout'+
+'</button>'+
+
+'<div id="strengthMsg" class="muted" style="margin-top:8px"></div>'
+
+}
+
+html+=
+'</section>';
+
+html+=
+
+'<section class="card day '+
+
+(cardio?
+C[cardio].className:
+'')+
+
+'">'+
+
+'<div class="slot-head">'+
+
+'<div>'+
+'<h2>🥾 Cardio</h2>'+
+'<div class="muted">'+
+(cardio?
+C[cardio].desc:
+'No cardio workout assigned')+
+'</div>'+
+'</div>'+
+
+'<span class="pill">CARDIO</span>'+
+
+'</div>'+
+
+'<div id="cardioArea" style="margin-top:10px">'+
+
+cardioEditor(k,cardio)+
+
+'</div>'+
+
+'</section>';
+
+$("app").innerHTML=html;
+
+$("datePicker").onchange=
+e=>{
+editingDate=e.target.value;
+render()
+};
+
+$("todayStrength").value=
+p.strength;
+
+$("todayStrength").onchange=
+e=>{
+setPlan(
+k,
+'strength',
+e.target.value
+)
+};
+
+$("todayCardio").value=
+p.cardio;
+
+$("todayCardio").onchange=
+e=>{
+setPlan(
+k,
+'cardio',
+e.target.value
+)
+};
+
+document
+.querySelectorAll('.exercise-select')
+.forEach(
+s=>
+s.onchange=
+e=>{
+localStorage.setItem(
+'montanaChoice_'+
+p.strength+
+'|'+
+e.target.dataset.i,
+e.target.value
+);
+render()
+}
+);
+
+if($("saveStrength"))
+
+$("saveStrength").onclick=
+()=>saveStrength(k);
+
+if($("saveCardio"))
+
+$("saveCardio").onclick=
+()=>saveCardioEntry(k)
+
+}
+
+function saveStrength(date){
+
+let workout=plan(date).strength;
+
+if(!workout)return;
+
 let ex=[];
-document.querySelectorAll(".exercise").forEach((d,i)=>{
-let name=d.querySelector("select").value,rows=[...d.querySelectorAll(".grid")].slice(1);
-let sets=rows.map(r=>({weight:r.querySelector(".weight").value.trim(),rep:r.querySelector(".rep").value.trim()}));
-let note=d.querySelector(".exercise-note")?.value.trim()||"";
-if(sets.some(x=>x.weight||x.rep)||note)ex.push({name,sets,note});
-});
-if(!ex.length&&!$("tenMinAbs").checked){$("msg").textContent="Enter at least one set or check 10-minute abs first.";return}
-logs.push({date:$("date").value||today(),workout:current,exercises:ex,tenMinAbs:$("tenMinAbs").checked});
-localStorage.setItem("montanaLiftingLogs",JSON.stringify(logs));
-$("msg").textContent="✓ Saved!";renderStats();renderHistory();renderProgressOptions();render();$("tenMinAbs").checked=false;
+
+document
+.querySelectorAll('.exercise')
+.forEach(
+d=>{
+
+let sel=
+d.querySelector(
+'.exercise-select'
+);
+
+if(!sel)return;
+
+let rows=[
+...d.querySelectorAll('.grid')
+].slice(1);
+
+let sets=
+rows.map(
+r=>({
+
+weight:
+r.querySelector('.weight')
+.value.trim(),
+
+rep:
+r.querySelector('.rep')
+.value.trim()
+
+})
+);
+
+let note=
+d.querySelector(
+'.exercise-note'
+)?.value.trim()||'';
+
+if(
+sets.some(
+x=>x.weight||x.rep
+)||
+note
+)
+
+ex.push({
+name:sel.value,
+sets,
+note
+})
+
 }
-$("save").onclick=save;
+);
+
+let abs=
+$("tenMinAbs")?.checked||false;
+
+if(
+!ex.length&&!abs
+){
+
+$("strengthMsg").textContent=
+'Enter at least one set or check 10-minute abs first.';
+
+return
+
+}
+
+logs.push({
+date,
+workout,
+exercises:ex,
+tenMinAbs:abs
+});
+
+localStorage.setItem(
+'montanaLiftingLogs',
+JSON.stringify(logs)
+);
+
+$("strengthMsg").textContent=
+'✓ Strength saved!';
+
+renderStats()
+
+}
+
+function saveCardioEntry(date){
+
+let type=plan(date).cardio;
+
+if(!type)return;
+
+let old=
+cardioLogs.findIndex(
+x=>x.date===date
+);
+
+let entry={
+
+date,
+
+workout:type,
+
+duration:
+$("cDuration")?.value||'',
+
+incline:
+$("cIncline")?.value||'',
+
+pack:
+$("cPack")?.value||'',
+
+steps:
+$("cSteps")?.value||'',
+
+completed:
+$("cComplete")?.checked||false,
+
+notes:
+$("cNotes")?.value||''
+
+};
+
+if(old>=0)
+
+cardioLogs[old]=entry;
+
+else
+
+cardioLogs.push(entry);
+
+saveCardio();
+
+$("cardioMsg").textContent=
+'✓ Cardio saved!';
+
+renderStats()
+
+}function renderWeek(){
+
+let html=
+
+'<section class="card">'+
+
+'<h2>📅 Flexible Week</h2>'+
+
+'<div class="muted">'+
+'Assign strength and cardio independently for every day.'+
+'</div>'+
+
+'<div class="notice">'+
+'💡 You can schedule both a strength workout and cardio on the same day. '+
+'You are never locked into a particular workout order.'+
+'</div>'+
+
+'</section>';
+
+for(let i=0;i<7;i++){
+
+let k=weekDate(i);
+
+let p=plan(k);
+
+html+=
+
+'<section class="card week-day day">'+
+
+'<div class="row">'+
+
+'<div>'+
+'<h3>'+fmt(k)+'</h3>'+
+'</div>'+
+
+'<span class="pill">'+
+(k===today()?'TODAY':'')+
+'</span>'+
+
+'</div>'+
+
+'<label>🏋️ Strength</label>'+
+
+'<select onchange="setPlan(\''+
+k+
+'\',\'strength\',this.value)">'+
+
+workoutOptions()
+.replace(
+'value="'+p.strength+'"',
+'selected value="'+p.strength+'"'
+)+
+
+'</select>'+
+
+'<label>🥾 Cardio</label>'+
+
+'<select onchange="setPlan(\''+
+k+
+'\',\'cardio\',this.value)">'+
+
+cardioOptions()
+.replace(
+'>'+p.cardio+'</option>',
+' selected>'+p.cardio+'</option>'
+)+
+
+'</select>'+
+
+'<div class="small" style="margin-top:10px">'+
+
+(p.strength?
+'🏋️ '+p.strength:
+'🏋️ No strength workout'
+)+
+
+'<br>'+
+
+(p.cardio?
+'🥾 '+p.cardio:
+'🥾 No cardio workout')+
+
+'</div>'+
+
+'</section>'
+
+}
+
+$("app").innerHTML=html
+
+}
+
+function renderProgress(){
+
+let strengthSessions=logs.length;
+
+let cardioSessions=
+cardioLogs.filter(
+x=>x.completed
+).length;
+
+let hillSessions=
+cardioLogs.filter(
+x=>x.completed &&
+x.workout==="Hill Training"
+).length;
+
+let hikeSessions=
+cardioLogs.filter(
+x=>x.completed &&
+x.workout==="Hike Simulation"
+).length;
+
+let walkSessions=
+cardioLogs.filter(
+x=>x.completed &&
+x.workout==="Easy Walk"
+).length;
+
+let durations=
+cardioLogs
+.map(x=>Number(x.duration)||0)
+.filter(x=>x>0);
+
+let maxDuration=
+durations.length?
+Math.max(...durations):
+0;
+
+let inclines=
+cardioLogs
+.map(x=>Number(x.incline)||0)
+.filter(x=>x>0);
+
+let maxIncline=
+inclines.length?
+Math.max(...inclines):
+0;
+
+let packs=
+cardioLogs
+.map(x=>Number(x.pack)||0)
+.filter(x=>x>0);
+
+let maxPack=
+packs.length?
+Math.max(...packs):
+0;
+
+let uniqueExercises=
+new Set(
+logs.flatMap(
+x=>x.exercises.map(
+e=>e.name
+)
+)
+).size;
+
+let names=
+[
+...new Set(
+Object.values(W)
+.flatMap(
+w=>w.e.map(
+x=>x[0]
+)
+)
+)
+];
+
+let selected=
+$("progressSelect")?.value||
+names[0]||
+"";
+
+let history=[];
+
+logs.forEach(
+l=>
+l.exercises.forEach(
+e=>{
+if(e.name===selected){
+
+history.push({
+date:l.date,
+workout:l.workout,
+sets:e.sets
+})
+
+}
+}
+)
+);
+
+let historyHTML=
+history
+.slice()
+.reverse()
+.slice(0,10)
+.map(
+r=>{
+
+let nums=
+r.sets
+.map(
+s=>Number(s.weight)
+)
+.filter(
+Number.isFinite
+);
+
+let top=
+nums.length?
+Math.max(...nums):
+"—";
+
+return '<div class="row">'+
+
+'<div>'+
+
+'<b>'+r.date+'</b>'+
+
+'<div class="muted">'+
+r.workout+
+' • Reps: '+
+r.sets.map(
+s=>s.rep||"—"
+).join(", ")+
+'</div>'+
+
+'</div>'+
+
+'<b>'+
+(top==="—"?"—":top+" lb")+
+'</b>'+
+
+'</div>'
+
+}
+)
+.join("");
+
+$("app").innerHTML=
+
+'<section class="card">'+
+
+'<h2>📈 Training Progress</h2>'+
+
+'<div class="two-col" style="margin-top:12px">'+
+
+'<div class="metric">'+
+'<span>Strength sessions</span>'+
+'<b>'+strengthSessions+'</b>'+
+'</div>'+
+
+'<div class="metric">'+
+'<span>Cardio sessions</span>'+
+'<b>'+cardioSessions+'</b>'+
+'</div>'+
+
+'<div class="metric">'+
+'<span>Unique exercises</span>'+
+'<b>'+uniqueExercises+'</b>'+
+'</div>'+
+
+'<div class="metric">'+
+'<span>Longest cardio</span>'+
+'<b>'+maxDuration+' min</b>'+
+'</div>'+
+
+'<div class="metric">'+
+'<span>Max incline</span>'+
+'<b>'+maxIncline+'%</b>'+
+'</div>'+
+
+'<div class="metric">'+
+'<span>Max pack</span>'+
+'<b>'+maxPack+' lb</b>'+
+'</div>'+
+
+'</div>'+
+
+'</section>'+
+
+'<section class="card">'+
+
+'<h2>🥾 Hiking Progress</h2>'+
+
+'<div class="two-col" style="margin-top:12px">'+
+
+'<div class="metric">'+
+'<span>Hill sessions</span>'+
+'<b>'+hillSessions+'</b>'+
+'</div>'+
+
+'<div class="metric">'+
+'<span>Hike simulations</span>'+
+'<b>'+hikeSessions+'</b>'+
+'</div>'+
+
+'<div class="metric">'+
+'<span>Easy walks</span>'+
+'<b>'+walkSessions+'</b>'+
+'</div>'+
+
+'</div>'+
+
+'<div class="notice">'+
+'<b>Montana progression</b><br><br>'+
+'Weeks 1–2: 6–7k steps • 30 min hill work • ~40 min hike simulation<br><br>'+
+'Weeks 3–4: 7–8k steps • 30–35 min hills • ~45 min hike simulation<br><br>'+
+'Weeks 5–6: ~8k steps • ~35 min hills • 45–50 min hike simulation • begin light pack<br><br>'+
+'Week 7+: 8–9k steps • 30–40 min hills • 50–60 min hike simulation • gradually increase pack'+
+'</div>'+
+
+'</section>'+
+
+'<section class="card">'+
+
+'<h2>🏋️ Exercise Progress</h2>'+
+
+'<div class="muted">'+
+'Pick an exercise to see your recent numbers.'+
+'</div>'+
+
+'<select id="progressSelect" style="margin-top:10px;width:100%">'+
+
+names.map(
+n=>
+'<option '+
+(n===selected?'selected':'')+
+'>'+
+n+
+'</option>'
+).join("")+
+
+'</select>'+
+
+'<div style="margin-top:8px">'+
+
+(historyHTML||
+'<div class="empty">No history for this exercise yet.</div>')+
+
+'</div>'+
+
+'</section>';
+
+/*
+Set the progress selector after the page
+has been created so changing it immediately
+updates the selected exercise.
+*/
+
+$("progressSelect").onchange=
+()=>renderProgress()
+
+}
+
+function renderSettings(){
+
+$("app").innerHTML=
+
+'<section class="card">'+
+
+'<h2>⚙️ Settings</h2>'+
+
+'<label>Training week</label>'+
+
+'<input id="settingWeek" type="number" min="1" value="'+
+(settings.week||1)+
+'">'+
+
+'<label>Daily step goal</label>'+
+
+'<input id="settingSteps" type="number" value="'+
+(settings.steps||7000)+
+'">'+
+
+'<label>Protein target (g)</label>'+
+
+'<input id="settingProtein" type="number" value="'+
+(settings.protein||130)+
+'">'+
+
+'<label>Calorie target</label>'+
+
+'<input id="settingCalories" type="number" value="'+
+(settings.calories||1725)+
+'">'+
+
+'<button class="primary" id="saveSettings" style="width:100%;margin-top:12px">'+
+'✓ Save Settings'+
+'</button>'+
+
+'<div id="settingsMsg" class="muted" style="margin-top:8px"></div>'+
+
+'</section>'+
+
+'<section class="card">'+
+
+'<h2>How Training Log works</h2>'+
+
+'<div class="small">'+
+
+'<b>🏋️ Strength</b><br>'+
+'Your four-day Lower A, Upper A, Lower B and Upper B program. '+
+'You can place these workouts on any days you want.'+
+
+'<br><br>'+
+
+'<b>🥾 Cardio</b><br>'+
+'Your Montana hiking conditioning plan. '+
+'Cardio can be scheduled independently of strength.'+
+
+'<br><br>'+
+
+'<b>📅 Flexible scheduling</b><br>'+
+'Every date has separate strength and cardio slots. '+
+'You can train once, twice, or not at all on a given day.'+
+
+'<br><br>'+
+
+'<b>📈 Progress</b><br>'+
+'Strength and cardio are tracked separately so you can see how each side of your training is progressing.'+
+
+'</div>'+
+
+'</section>'+
+
+'<section class="card">'+
+
+'<h2>💾 Data & Backup</h2>'+
+
+'<p class="note">'+
+'Your training data is stored locally on this device/browser.'+
+'</p>'+
+
+'<button id="exportAll">Export Training Backup</button>'+
+
+'<button id="clearAll" class="danger" style="margin-left:6px">'+
+'Clear All Data'+
+'</button>'+
+
+'<textarea id="backupText" rows="5" placeholder="Backup appears here after export." style="margin-top:10px"></textarea>'+
+
+'<button id="restoreAll" style="margin-top:8px">'+
+'Restore Backup'+
+'</button>'+
+
+'<div id="backupMsg" class="muted" style="margin-top:8px"></div>'+
+
+'</section>';
+
+$("saveSettings").onclick=
+()=>{
+
+settings.week=
+Number(
+$("settingWeek").value
+)||1;
+
+settings.steps=
+Number(
+$("settingSteps").value
+)||7000;
+
+settings.protein=
+Number(
+$("settingProtein").value
+)||130;
+
+settings.calories=
+Number(
+$("settingCalories").value
+)||1725;
+
+saveSettings();
+
+$("settingsMsg").textContent=
+"✓ Settings saved."
+
+};
+
+$("exportAll").onclick=
+()=>{
+
+let backup={
+liftingLogs:logs,
+cardioLogs:cardioLogs,
+plans:plans,
+settings:settings
+};
+
+$("backupText").value=
+JSON.stringify(
+backup
+);
+
+$("backupMsg").textContent=
+"✓ Backup created."
+
+};
+
+$("restoreAll").onclick=
+()=>{
+
+try{
+
+let x=
+JSON.parse(
+$("backupText").value
+);
+
+if(
+!x||
+!Array.isArray(x.liftingLogs)||
+!Array.isArray(x.cardioLogs)
+)
+
+throw new Error();
+
+logs=x.liftingLogs;
+
+cardioLogs=x.cardioLogs;
+
+plans=x.plans||{};
+
+settings=x.settings||settings;
+
+localStorage.setItem(
+"montanaLiftingLogs",
+JSON.stringify(logs)
+);
+
+saveCardio();
+savePlans();
+saveSettings();
+
+$("backupMsg").textContent=
+"✓ Backup restored.";
+
+renderStats();
+
+}
+
+catch(e){
+
+$("backupMsg").textContent=
+"That backup could not be restored."
+
+}
+
+};
+
+$("clearAll").onclick=
+()=>{
+
+if(
+confirm(
+"Delete ALL Training Log data? This cannot be undone unless you have a backup."
+)
+){
+
+localStorage.removeItem(
+"montanaLiftingLogs"
+);
+
+localStorage.removeItem(
+"trainingCardioLogs"
+);
+
+localStorage.removeItem(
+"trainingDailyPlans"
+);
+
+localStorage.removeItem(
+"trainingSettings"
+);
+
+logs=[];
+
+cardioLogs=[];
+
+plans={};
+
+settings={
+week:1,
+steps:7000,
+protein:130,
+calories:1725
+};
+
+renderStats();
+
+$("backupMsg").textContent=
+"All data cleared."
+
+}
+
+}
+
+}
 
 function renderStats(){
-$("count").textContent=logs.length;
-$("exCount").textContent=new Set(logs.flatMap(x=>x.exercises.map(e=>e.name))).size;
-$("last").textContent=logs.length?logs[logs.length-1].date:"—";
-}
-function renderHistory(){
-if(!logs.length){$("history").textContent="No workouts saved yet.";return}
-$("history").innerHTML=logs.slice().reverse().map((l,ri)=>`<div class="row"><div><b>${l.workout}</b><div class="muted">${l.date} • ${l.exercises.length} exercises</div></div><button onclick="removeWorkout(${logs.length-1-ri})">Delete</button></div>`).join("")
-}
-window.removeWorkout=i=>{if(confirm("Delete this workout?")){logs.splice(i,1);localStorage.setItem("montanaLiftingLogs",JSON.stringify(logs));renderStats();renderHistory();renderProgressOptions();render()}};
 
-function renderProgressOptions(){
-let names=[...new Set(Object.values(W).flatMap(w=>w.e.map(x=>x[0])))];
-$("progressSelect").innerHTML=names.map(n=>`<option>${n}</option>`).join("");renderProgress()
+$("count").textContent=
+logs.length;
+
+$("cardioCount").textContent=
+cardioLogs.filter(
+x=>x.completed
+).length;
+
+let dates=
+logs
+.map(x=>x.date)
+.concat(
+cardioLogs
+.filter(x=>x.completed)
+.map(x=>x.date)
+)
+.sort();
+
+$("last").textContent=
+dates.length?
+dates[dates.length-1]:
+"—"
+
 }
-$("progressSelect").onchange=renderProgress;
-function renderProgress(){
-let name=$("progressSelect").value, rows=[];
-logs.forEach(l=>l.exercises.forEach(e=>{if(e.name===name)rows.push({date:l.date,sets:e.sets})}));
-if(!rows.length){$("progress").innerHTML='<div class="muted">No history yet.</div>';return}
-$("progress").innerHTML=rows.slice().reverse().slice(0,10).map(r=>{
-let nums=r.sets.map(s=>Number(s.weight)).filter(Number.isFinite), top=nums.length?Math.max(...nums):"—";
-return `<div class="row"><div><b>${r.date}</b><div class="muted">Reps: ${r.sets.map(s=>s.rep||"—").join(", ")}</div></div><b>${top==="—"?"—":top+" lb"}</b></div>`
-}).join("")
+
+function openPage(page){
+
+currentPage=page;
+
+document
+.querySelectorAll(
+"#tabs button"
+)
+.forEach(
+b=>
+b.classList.toggle(
+"active",
+b.dataset.page===page
+)
+);
+
+render();
+
 }
-$("export").onclick=()=>{$("backup").value=JSON.stringify(logs);$("msg").textContent="Backup created below."};
-$("import").onclick=()=>{try{let x=JSON.parse($("backup").value);if(!Array.isArray(x))throw 1;logs=x;localStorage.setItem("montanaLiftingLogs",JSON.stringify(logs));renderStats();renderHistory();renderProgressOptions();render();$("msg").textContent="✓ Backup restored."}catch(e){$("msg").textContent="That backup could not be restored."}};
-$("clear").onclick=()=>{if(confirm("Delete ALL workout history? This cannot be undone unless you exported a backup.")){logs=[];localStorage.removeItem("montanaLiftingLogs");renderStats();renderHistory();renderProgressOptions();render()}};
-render();renderStats();renderHistory();renderProgressOptions();
+
+document
+.querySelectorAll(
+"#tabs button"
+)
+.forEach(
+b=>
+b.onclick=
+()=>openPage(
+b.dataset.page
+)
+);
+
+function render(){
+
+if(currentPage==="today")
+renderToday();
+
+else if(currentPage==="week")
+renderWeek();
+
+else if(currentPage==="progress")
+renderProgress();
+
+else if(currentPage==="settings")
+renderSettings();
+
+renderStats();
+
+}
+
+render();
+
 </script>
-</body></html>
+
+</body>
+</html>
